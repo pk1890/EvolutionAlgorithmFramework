@@ -11,6 +11,11 @@ public class Population <G extends Gene> implements Iterable<Genotype<G>>{
         return individuals;
     }
 
+    public void addIndividual(Genotype<G> individual)
+    {
+        individuals.add(individual);
+    }
+
     @Override
     public Iterator<Genotype<G>> iterator() {
         return individuals.iterator();
@@ -25,5 +30,9 @@ public class Population <G extends Gene> implements Iterable<Genotype<G>>{
 
     public Population(){
         List<Genotype<G>> individuals = new ArrayList<>();
+    }
+
+    public void setIndividuals(List<Genotype<G>> individuals) {
+        this.individuals = individuals;
     }
 }
