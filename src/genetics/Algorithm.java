@@ -5,10 +5,12 @@ import genetics.genes.Gene;
 import genetics.genes.Genotype;
 import genetics.genes.Population;
 import genetics.operators.CrossoverMethod;
+import genetics.operators.Mutation;
 import genetics.operators.Operator;
 import genetics.operators.Selector;
 
 import java.util.List;
+import java.util.Random;
 import java.util.function.Function;
 
 public class Algorithm <G extends Gene> {
@@ -80,6 +82,10 @@ public class Algorithm <G extends Gene> {
             if(operator instanceof CrossoverMethod)
             {
                 // ((CrossoverMethod<G>) operator).crosbreedGroup()
+            }
+            else if(operator instanceof Mutation)
+            {
+                ((Mutation<G>) operator).mutate(population.getIndividuals().get(new Random().nextInt()%populationSize));
             }
         }
     }
