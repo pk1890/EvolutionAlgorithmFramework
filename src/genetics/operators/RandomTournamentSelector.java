@@ -10,11 +10,12 @@ import java.util.Random;
 
 public class RandomTournamentSelector<G extends Gene> extends Selector<G>{
     private int tournamentSize;
-    private int desiredPopulationSize;
+    private double selectionRatio;
     private Random random = new Random();
 
     @Override
     public Population<G> select(Population<G> population) {
+        int desiredPopulationSize = (int)(population.getIndividuals().size()/selectionRatio);
         Population<G> selectedPopulation = new Population<G>();
         while(selectedPopulation.getIndividuals().size() != desiredPopulationSize){
             selectedPopulation.getIndividuals().add(playTournament(population));
@@ -22,9 +23,9 @@ public class RandomTournamentSelector<G extends Gene> extends Selector<G>{
         return selectedPopulation;
     }
 
-    public RandomTournamentSelector(int tournamentSize, int desiredPopulationSize){
+    public RandomTournamentSelector(int tournamentSize, double selectionRatio){
         this.tournamentSize = tournamentSize;
-        this.desiredPopulationSize = desiredPopulationSize;
+        this.selectionRatio = selectionRatio;
     }
 
     private Genotype<G> playTournament(Population<G> population){
