@@ -8,6 +8,7 @@ import genetics.operators.CrossoverMethod;
 import genetics.operators.Mutation;
 import genetics.operators.Operator;
 import genetics.operators.Selector;
+import genetics.utilities.BreedingStrategy;
 
 import java.util.List;
 import java.util.Random;
@@ -20,6 +21,7 @@ public class Algorithm <G extends Gene> {
     private Population<G> population;
     private Selector<G> selector;
     private GenotypeFactory<G> genotypeFactory;
+    private BreedingStrategy<G> breedingStrategy;
 
 
 
@@ -77,11 +79,12 @@ public class Algorithm <G extends Gene> {
         }
         population = selector.select(population);
 
+
         for(Operator<G> operator : operators)
         {
             if(operator instanceof CrossoverMethod)
             {
-                // ((CrossoverMethod<G>) operator).crosbreedGroup()
+                ((CrossoverMethod<G>) operator).crosbreedGroup(breedingStrategy.choose(population));
             }
             else if(operator instanceof Mutation)
             {
