@@ -1,4 +1,4 @@
-package kipinski.piotr;
+package genetics;
 
 public class DoubleGene extends Gene {
     private double value;

@@ -1,4 +1,4 @@
-package kipinski.piotr;
+package genetics;
 
 public abstract class Gene{
 }

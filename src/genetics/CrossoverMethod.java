@@ -1,4 +1,4 @@
-package kipinski.piotr;
+package genetics;
 
 import javafx.util.Pair;
 
