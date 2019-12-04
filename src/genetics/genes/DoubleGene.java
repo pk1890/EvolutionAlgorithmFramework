@@ -1,4 +1,4 @@
-package genetics;
+package genetics.genes;
 
 public class DoubleGene extends Gene {
     private double value;

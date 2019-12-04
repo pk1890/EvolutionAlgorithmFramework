@@ -1,4 +1,4 @@
-package genetics;
+package genetics.genes;
 
 public abstract class Gene{
 }

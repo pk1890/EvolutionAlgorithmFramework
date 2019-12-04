@@ -1,4 +1,6 @@
-package genetics;
+package genetics.factories;
+
+import genetics.genes.DoubleGene;
 
 import java.util.Random;
 

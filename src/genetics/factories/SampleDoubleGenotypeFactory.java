@@ -1,5 +1,8 @@
-package genetics;
+package genetics.factories;
 
+import genetics.genes.DoubleGene;
+import genetics.genes.Genotype;
+import genetics.genes.Population;
 import javafx.util.Pair;
 
 import java.util.ArrayList;

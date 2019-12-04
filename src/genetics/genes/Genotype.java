@@ -1,9 +1,7 @@
-package genetics;
+package genetics.genes;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Function;
 
 public class Genotype<G extends Gene> {
     private List<G> genes;

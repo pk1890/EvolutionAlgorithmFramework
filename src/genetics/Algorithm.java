@@ -1,5 +1,11 @@
 package genetics;
 
+import genetics.genes.Gene;
+import genetics.genes.Genotype;
+import genetics.genes.Population;
+import genetics.operators.Operator;
+import genetics.operators.Selector;
+
 import java.util.List;
 import java.util.function.Function;
 

@@ -1,4 +1,7 @@
-package genetics;
+package genetics.factories;
+
+import genetics.genes.Gene;
+import genetics.genes.Genotype;
 
 import java.util.List;
 

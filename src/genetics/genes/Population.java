@@ -1,4 +1,4 @@
-package genetics;
+package genetics.genes;
 
 import java.util.ArrayList;
 import java.util.Iterator;
