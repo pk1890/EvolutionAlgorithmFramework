@@ -8,7 +8,11 @@ public class EvaluationsCountStopCondition extends AbstractStopCondition{
         number = 0;
     }
 
+    public void update(){
+        number++;
+    }
+
     public boolean shouldContinue(){
-        return ++number < count;
+        return number < count;
     }
 }

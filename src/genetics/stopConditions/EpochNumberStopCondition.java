@@ -6,8 +6,13 @@ public class EpochNumberStopCondition extends AbstractStopCondition {
         currentEpoch = 0;
         this.number = number;
     }
+
+    public void update(){
+        currentEpoch++;
+    }
+
     @Override
     public boolean shouldContinue(){
-        return ++currentEpoch < number;
+        return currentEpoch < number;
     }
 }

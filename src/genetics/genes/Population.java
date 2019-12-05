@@ -28,6 +28,10 @@ public class Population <G extends Gene> implements Iterable<Genotype<G>>{
         }
     }
 
+    public Genotype<G> getBestIndividual(){
+        return individuals.sort();
+    }
+
     public Population(){
         List<Genotype<G>> individuals = new ArrayList<>();
     }
