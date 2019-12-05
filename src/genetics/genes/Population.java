@@ -1,8 +1,6 @@
 package genetics.genes;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class Population <G extends Gene> implements Iterable<Genotype<G>>{
     private List<Genotype<G>> individuals;
@@ -29,7 +27,8 @@ public class Population <G extends Gene> implements Iterable<Genotype<G>>{
     }
 
     public Genotype<G> getBestIndividual(){
-        return individuals.sort();
+        individuals.sort(Comparator.comparingDouble(Genotype::getFitness));
+        return individuals.get(individuals.size()-1);
     }
 
     public Population(){

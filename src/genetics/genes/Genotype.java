@@ -3,7 +3,7 @@ package genetics.genes;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Genotype<G extends Gene> implements Comparable<Genotype<G>>{
+public class Genotype<G extends Gene>{
     private List<G> genes;
     private double fitness;
 
@@ -28,8 +28,4 @@ public class Genotype<G extends Gene> implements Comparable<Genotype<G>>{
         this.fitness = fitness;
     }
 
-    @Override
-    public int compareTo(Genotype<G> g) {
-        return Double.compare(this.fitness, g.fitness);
-    }
 }
