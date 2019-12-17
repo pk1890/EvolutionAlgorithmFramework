@@ -21,7 +21,7 @@ public class Population <G extends Gene> implements Iterable<Genotype<G>>{
     }
 
     public Population(int size){
-        List<Genotype<G>> individuals = new ArrayList<>();
+        individuals = new ArrayList<>();
         for(int i = 0; i < size; i++){
             individuals.add(new Genotype<G>());
         }
@@ -32,13 +32,20 @@ public class Population <G extends Gene> implements Iterable<Genotype<G>>{
         return individuals.get(individuals.size()-1);
     }
 
+    public Genotype<G> getRandomIndividual(){
+        return individuals.get(new Random().nextInt(individuals.size()));
+    }
+
+    public void concatenate(Population<G> population){
+        this.individuals.addAll(population.individuals);
+    }
 
     public List<Double> getFitnesses(){
         return individuals.stream().map(Genotype::getFitness).collect(Collectors.toList());
     }
 
     public Population(){
-        List<Genotype<G>> individuals = new ArrayList<>();
+        individuals = new ArrayList<>();
     }
 
     public void setIndividuals(List<Genotype<G>> individuals) {

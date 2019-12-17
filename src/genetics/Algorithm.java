@@ -29,6 +29,10 @@ public class Algorithm <G extends Gene> {
     public static class Builder <G extends Gene> {
         private Algorithm<G> algorithm;
 
+        public Builder(){
+            algorithm = new Algorithm<>();
+        }
+
         public Builder populationSize(int size){
             algorithm.populationSize = size;
             return this;
@@ -120,7 +124,7 @@ public class Algorithm <G extends Gene> {
         {
             if(operator instanceof CrossoverMethod)
             {
-                ((CrossoverMethod<G>) operator).crosbreedGroup(breedingStrategy.choose(population));
+                population.concatenate(((CrossoverMethod<G>) operator).crossbreed(breedingStrategy, population));
             }
             else if(operator instanceof Mutation)
             {

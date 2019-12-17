@@ -27,5 +27,6 @@ public class Genotype<G extends Gene>{
     public void setFitness(double fitness) {
         this.fitness = fitness;
     }
+    public int dimensions() {return genes.size();}
 
 }

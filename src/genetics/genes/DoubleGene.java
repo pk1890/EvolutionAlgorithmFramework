@@ -10,4 +10,19 @@ public class DoubleGene extends Gene {
         this.min = min;
         this.max = max;
     }
+
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return "DoubleGene{" +
+                "value=" + value +
+                '}';
+    }
 }

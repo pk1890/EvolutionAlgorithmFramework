@@ -3,18 +3,24 @@ package genetics.factories;
 import genetics.genes.DoubleGene;
 import genetics.genes.Genotype;
 import genetics.genes.Population;
-import javafx.util.Pair;
+import genetics.utilities.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class SampleDoubleGenotypeFactory extends GenotypeFactory<DoubleGene> {
-    private List<Pair<Double, Double>> ranges;
+
     List<DoubleUniformGeneFactory> factories = new ArrayList<>();
+
     public SampleDoubleGenotypeFactory(List<Pair<Double, Double>> ranges){
-        this.ranges = ranges;
         for(Pair<Double, Double> range : ranges){
-            factories.add(new DoubleUniformGeneFactory(range.getKey(), range.getValue()));
+            factories.add(new DoubleUniformGeneFactory(range.getFirst(), range.getSecond()));
+        }
+    }
+    public SampleDoubleGenotypeFactory(Pair<Double, Double> range, int dimensions){
+        for(int i = 0; i < dimensions; i++){
+            factories.add(new DoubleUniformGeneFactory(range.getFirst(), range.getSecond()));
         }
     }
 
@@ -22,9 +28,8 @@ public class SampleDoubleGenotypeFactory extends GenotypeFactory<DoubleGene> {
     @Override
     public Genotype<DoubleGene> generate() {
         Genotype<DoubleGene> genotype = new Genotype<>();
-        int i = 0;
-        for(Pair<Double, Double> range : ranges){
-            genotype.getGenes().add(factories.get(i++).generate());
+        for(DoubleUniformGeneFactory f : factories){
+            genotype.getGenes().add(f.generate());
         }
         return genotype;
     }
