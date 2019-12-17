@@ -4,7 +4,7 @@ import genetics.stopConditions.AbstractStopCondition;
 
 import java.sql.Timestamp;
 
-public class ElapsedTimeStopCondition extends AbstractStopCondition {
+public class ElapsedTimeStopCondition extends CountingBasedStopCondition {
     private long miliseconds, startTimestamp, currentTimestamp;
     public ElapsedTimeStopCondition(int value, TimeUnits unit){
         switch (unit){
@@ -17,11 +17,13 @@ public class ElapsedTimeStopCondition extends AbstractStopCondition {
         }
     }
 
-    public void measure(){
+    @Override
+    public void update(){
         this.currentTimestamp = System.nanoTime();
     }
 
-    public void startCountdown(){
+    @Override
+    public void reset(){
         startTimestamp = System.nanoTime();
     }
 

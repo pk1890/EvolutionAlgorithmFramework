@@ -23,18 +23,19 @@ public class Algorithm <G extends Gene> {
     private Selector<G> selector;
     private GenotypeFactory<G> genotypeFactory;
     private BreedingStrategy<G> breedingStrategy;
-
-
-    private ElapsedTimeStopCondition elapsedTimeStopCondition = null;
-    private EpochNumberStopCondition epochNumberStopCondition = null;
-    private PlateauStopCondition plateauStopCondition = null;
-    private EvaluationsCountStopCondition evaluationsCountStopCondition = null;
+    private List<AbstractStopCondition> stopConditions;
+    private boolean shouldContinue = true;
 
     public static class Builder <G extends Gene> {
         private Algorithm<G> algorithm;
 
         public Builder populationSize(int size){
             algorithm.populationSize = size;
+            return this;
+        }
+
+        public Builder breedingStrategy(BreedingStrategy<G> breedingStrategy){
+            algorithm.breedingStrategy = breedingStrategy;
             return this;
         }
 
@@ -59,18 +60,8 @@ public class Algorithm <G extends Gene> {
             return this;
         }
 
-        public Builder addStopCondition(AbstractStopCondition condition){
-            if(condition instanceof ElapsedTimeStopCondition){
-                algorithm.elapsedTimeStopCondition = (ElapsedTimeStopCondition) condition;
-            } else if(condition instanceof EpochNumberStopCondition){
-                algorithm.epochNumberStopCondition = (EpochNumberStopCondition) condition;
-            } else if (condition instanceof EvaluationsCountStopCondition){
-                algorithm.evaluationsCountStopCondition = (EvaluationsCountStopCondition) condition;
-            } else if (condition instanceof PlateauStopCondition) {
-                algorithm.plateauStopCondition = (PlateauStopCondition) condition;
-            } else{
-                throw new TypeNotPresentException("Wrong type of stop condition", new Throwable());
-            }
+        public Builder stopConditions(List<AbstractStopCondition> abstractStopConditions){
+            algorithm.stopConditions = abstractStopConditions;
             return this;
         }
 
@@ -94,25 +85,37 @@ public class Algorithm <G extends Gene> {
 
     }
 
-    public void run(){
-        elapsedTimeStopCondition.startCountdown();
-        while(true){
-            nextEpoch();
-            if(plateauStopCondition != null && !plateauStopCondition.shouldContinue()) break;
-            if(epochNumberStopCondition != null && !epochNumberStopCondition.shouldContinue()) break;
-            if(evaluationsCountStopCondition != null && !evaluationsCountStopCondition.shouldContinue()) break;
-            if(elapsedTimeStopCondition != null && !elapsedTimeStopCondition.shouldContinue()) break;
-        }
+    private void updateStopConditions() {
+        stopConditions.forEach((x) -> {
+            if(x instanceof CountingBasedStopCondition) ((CountingBasedStopCondition) x).update();
+            if(x instanceof FitnessBasedStopCondition) ((FitnessBasedStopCondition) x).update(population.getFitnesses());
+        });
     }
+    public Population<G> run(){
+        stopConditions.forEach(AbstractStopCondition::reset);
+        while(shouldContinue){
+            nextEpoch();
+        }
+        return population;
+    }
+
 
     public void nextEpoch(){
         for(Genotype<G> genotype : population){
             genotype.setFitness(fitnessFunction.apply(genotype));
         }
         population = selector.select(population);
-        if(plateauStopCondition != null)
-            plateauStopCondition.pushBest(population.getBestIndividual());
 
+        updateStopConditions();
+
+        applyOperators();
+
+        shouldContinue = stopConditions.stream()
+                        .map(AbstractStopCondition::shouldContinue)
+                        .reduce(true, (x, y) -> x & y);
+    }
+
+    private void applyOperators() {
         for(Operator<G> operator : operators)
         {
             if(operator instanceof CrossoverMethod)
@@ -124,11 +127,6 @@ public class Algorithm <G extends Gene> {
                 ((Mutation<G>) operator).mutate(population.getIndividuals().get(new Random().nextInt()%populationSize));
             }
         }
-        if(epochNumberStopCondition != null)
-            epochNumberStopCondition.update();
-        if(evaluationsCountStopCondition != null)
-            evaluationsCountStopCondition.update();
-        if(elapsedTimeStopCondition != null)
-            elapsedTimeStopCondition.measure();
     }
+
 }

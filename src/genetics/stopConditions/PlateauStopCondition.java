@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class PlateauStopCondition extends AbstractStopCondition {
+public class PlateauStopCondition extends FitnessBasedStopCondition {
 
     private final int epochNumber;
     private final double delta;
@@ -19,17 +19,29 @@ public class PlateauStopCondition extends AbstractStopCondition {
         this.bestFitnesses = new LinkedList<>();
     }
 
-    public void pushBest(Genotype bestGenotype){
+    void pushBest(double bestFitness){
         if(filledFields < epochNumber) {
-            bestFitnesses.addLast(bestGenotype.getFitness());
+            bestFitnesses.addLast(bestFitness);
         } else {
             bestFitnesses.removeFirst();
-            bestFitnesses.addLast(bestGenotype.getFitness());
+            bestFitnesses.addLast(bestFitness);
         }
+    }
+
+    @Override
+    public void reset() {
+        this.bestFitnesses = new LinkedList<>();
+        filledFields= 0;
     }
 
     @Override
     public boolean shouldContinue() {
         return filledFields < epochNumber || (Math.abs(bestFitnesses.getFirst() - bestFitnesses.getLast()) > delta);
+    }
+
+    @Override
+    public void update(List<Double> fitnesses) {
+        fitnesses.sort(Double::compareTo);
+        pushBest(fitnesses.get(fitnesses.size()-1));
     }
 }

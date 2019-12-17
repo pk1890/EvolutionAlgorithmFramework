@@ -1,12 +1,17 @@
 package genetics.stopConditions;
 
-public class EpochNumberStopCondition extends AbstractStopCondition {
+public class EpochNumberStopCondition extends CountingBasedStopCondition {
     private int number, currentEpoch;
     public EpochNumberStopCondition(int number){
-        currentEpoch = 0;
         this.number = number;
     }
 
+    @Override
+    public void reset() {
+        currentEpoch = 0;
+    }
+
+    @Override
     public void update(){
         currentEpoch++;
     }
