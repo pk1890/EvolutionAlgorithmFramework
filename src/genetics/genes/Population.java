@@ -23,7 +23,9 @@ public class Population <G extends Gene> implements Iterable<Genotype<G>>{
     public Population(int size){
         individuals = new ArrayList<>();
         for(int i = 0; i < size; i++){
-            individuals.add(new Genotype<G>());
+
+            //tworzylo na poczatku individuals  genotypy z dimensions=0,
+            //individuals.add(new Genotype<G>());
         }
     }
 

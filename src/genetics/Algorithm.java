@@ -128,7 +128,7 @@ public class Algorithm <G extends Gene> {
             }
             else if(operator instanceof Mutation)
             {
-                ((Mutation<G>) operator).mutate(population.getIndividuals().get(new Random().nextInt()%populationSize));
+                ((Mutation<G>) operator).mutate(population.getIndividuals().get(new Random().nextInt(populationSize)));
             }
         }
     }

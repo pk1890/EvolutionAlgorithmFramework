@@ -4,10 +4,13 @@ import genetics.Algorithm;
 import genetics.factories.SampleDoubleGenotypeFactory;
 import genetics.genes.DoubleGene;
 import genetics.genes.Genotype;
+import genetics.genes.Population;
 import genetics.operators.Operator;
 import genetics.operators.RandomTournamentSelector;
 import genetics.stopConditions.AbstractStopCondition;
+import genetics.stopConditions.ElapsedTimeStopCondition;
 import genetics.stopConditions.EpochNumberStopCondition;
+import genetics.stopConditions.TimeUnits;
 import genetics.utilities.Pair;
 
 import java.util.ArrayList;
@@ -19,7 +22,7 @@ public class Main {
     public static void main(String[] args) {
 
         List<AbstractStopCondition> stopConditions = new ArrayList<>();
-        stopConditions.add(new EpochNumberStopCondition(100));
+        stopConditions.add(new ElapsedTimeStopCondition(10, TimeUnits.SECONDS));
 
         List<Operator<DoubleGene>> operators = new ArrayList<>();
         operators.add(new SampleCrossoverMethod());
@@ -38,7 +41,7 @@ public class Main {
                                                     .breedingStrategy(new SampleBreedingStrategy())
                                                     .build();
 
-        var result = sampleAlgorithm.run();
+        Population<DoubleGene> result = sampleAlgorithm.run();
         System.out.println(result.getBestIndividual().getGenes().toString());
     }
 }
