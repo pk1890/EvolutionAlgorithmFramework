@@ -21,4 +21,8 @@ public class StringGene extends Gene {
         gene.value = new String(this.value);
         return gene;
     }
+    @Override
+    public boolean equals(Object other){
+        return this.value.equals(((StringGene)other).value);
+    }
 }
