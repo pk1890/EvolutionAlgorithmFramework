@@ -20,14 +20,6 @@ public class Population <G extends Gene> implements Iterable<Genotype<G>>{
         return individuals.iterator();
     }
 
-    public Population(int size){
-        individuals = new ArrayList<>();
-        for(int i = 0; i < size; i++){
-
-            //tworzylo na poczatku individuals  genotypy z dimensions=0,
-            //individuals.add(new Genotype<G>());
-        }
-    }
 
     public Genotype<G> getBestIndividual(){
         individuals.sort(Comparator.comparingDouble(Genotype::getFitness));
@@ -44,6 +36,10 @@ public class Population <G extends Gene> implements Iterable<Genotype<G>>{
 
     public List<Double> getFitnesses(){
         return individuals.stream().map(Genotype::getFitness).collect(Collectors.toList());
+    }
+
+    public int size(){
+        return individuals.size();
     }
 
     public Population(){

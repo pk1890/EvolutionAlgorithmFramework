@@ -29,4 +29,17 @@ public class Genotype<G extends Gene>{
     }
     public int dimensions() {return genes.size();}
 
+    public List<G> getGenesCopy(){
+        List<G> genesCopy = new ArrayList<>();
+        for(G g : genes){
+            try {
+                genesCopy.add((G) g.getClone());
+            } catch (CloneNotSupportedException e) {
+                //should never happen
+                System.out.println("ERROR WITH CLONING GENE OCCURED, MAKE SURE TO IMPLEMENT CLONE ON YOUR GENE");
+                System.exit(1);
+            }
+        }
+        return genesCopy;
+    }
 }

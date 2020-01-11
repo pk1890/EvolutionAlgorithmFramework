@@ -25,4 +25,9 @@ public class DoubleGene extends Gene {
                 "value=" + value +
                 '}';
     }
+    @Override
+    public Gene getClone() throws CloneNotSupportedException {
+        return (DoubleGene)super.clone();
+    }
+
 }

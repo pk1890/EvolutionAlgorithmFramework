@@ -16,7 +16,7 @@ import java.util.Random;
 import java.util.function.Function;
 
 public class Algorithm <G extends Gene> {
-    private int populationSize;
+    private int startPopulationSize;
     private Function<Genotype<G>, Double> fitnessFunction;
     private List<Operator<G>> operators;
     private Population<G> population;
@@ -34,7 +34,7 @@ public class Algorithm <G extends Gene> {
         }
 
         public Builder populationSize(int size){
-            algorithm.populationSize = size;
+            algorithm.startPopulationSize = size;
             return this;
         }
 
@@ -79,8 +79,8 @@ public class Algorithm <G extends Gene> {
 
         private void init()
         {
-            algorithm.population = new Population<>(algorithm.populationSize);
-            for(int i=0;i<algorithm.populationSize;i++)
+            algorithm.population = new Population<>();
+            for(int i = 0; i<algorithm.startPopulationSize; i++)
             {
                 algorithm.population.addIndividual(algorithm.genotypeFactory.generate());
             }
@@ -114,6 +114,8 @@ public class Algorithm <G extends Gene> {
 
         applyOperators();
 
+        System.out.println(population.getBestIndividual().getGenes());
+
         shouldContinue = stopConditions.stream()
                         .map(AbstractStopCondition::shouldContinue)
                         .reduce(true, (x, y) -> x & y);
@@ -128,7 +130,7 @@ public class Algorithm <G extends Gene> {
             }
             else if(operator instanceof Mutation)
             {
-                ((Mutation<G>) operator).mutate(population.getIndividuals().get(new Random().nextInt(populationSize)));
+                ((Mutation<G>) operator).mutate(population.getIndividuals().get(new Random().nextInt(population.size())));
             }
         }
     }

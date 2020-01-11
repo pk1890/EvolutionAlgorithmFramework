@@ -19,12 +19,12 @@ public class ElapsedTimeStopCondition extends CountingBasedStopCondition {
 
     @Override
     public void update(){
-        this.currentTimestamp = System.nanoTime();
+        this.currentTimestamp = System.currentTimeMillis();
     }
 
     @Override
     public void reset(){
-        startTimestamp = System.nanoTime();
+        startTimestamp = System.currentTimeMillis();
     }
 
     @Override
