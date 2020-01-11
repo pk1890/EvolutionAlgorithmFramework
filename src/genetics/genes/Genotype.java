@@ -29,6 +29,14 @@ public class Genotype<G extends Gene>{
     }
     public int dimensions() {return genes.size();}
 
+    @Override
+    public String toString() {
+        return "Genotype{" +
+                "genes=" + genes +
+                ", fitness=" + fitness +
+                '}';
+    }
+
     public List<G> getGenesCopy(){
         List<G> genesCopy = new ArrayList<>();
         for(G g : genes){

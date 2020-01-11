@@ -23,8 +23,9 @@ public class TSPFitnessFunction implements Function<Genotype<StringGene>, Double
         int sum = 0;
         List<StringGene> genes = stringGeneGenotype.getGenes();
         for(int i = 0; i < genes.size()-1; i++){
-            sum += distances.get(genes.get(i)).get(genes.get(i+1));
+            sum += distances.get(genes.get(i).getValue()).get(genes.get(i+1).getValue());
         }
+        sum += distances.get(genes.get(genes.size()-1).getValue()).get(genes.get(0).getValue());
         return (double) -sum;
     }
 }

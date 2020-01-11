@@ -108,13 +108,13 @@ public class Algorithm <G extends Gene> {
         for(Genotype<G> genotype : population){
             genotype.setFitness(fitnessFunction.apply(genotype));
         }
+        System.out.println(population.getBestIndividual());
         population = selector.select(population);
 
         updateStopConditions();
 
         applyOperators();
 
-        System.out.println(population.getBestIndividual().getGenes());
 
         shouldContinue = stopConditions.stream()
                         .map(AbstractStopCondition::shouldContinue)

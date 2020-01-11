@@ -10,10 +10,7 @@ import genetics.genes.StringGene;
 import genetics.genes.Population;
 import genetics.operators.Operator;
 import genetics.operators.RandomTournamentSelector;
-import genetics.stopConditions.AbstractStopCondition;
-import genetics.stopConditions.ElapsedTimeStopCondition;
-import genetics.stopConditions.PlateauStopCondition;
-import genetics.stopConditions.TimeUnits;
+import genetics.stopConditions.*;
 import genetics.utilities.Pair;
 
 import java.util.ArrayList;
@@ -29,6 +26,7 @@ public class Main {
         List<AbstractStopCondition> stopConditions = new ArrayList<>();
         stopConditions.add(new ElapsedTimeStopCondition(10, TimeUnits.SECONDS));
         stopConditions.add(new PlateauStopCondition(10, 1000));
+        stopConditions.add(new EpochNumberStopCondition(10));
 
         List<Operator<StringGene>> operators = new ArrayList<>();
         operators.add(new TSPCrossoverMethod());
@@ -86,7 +84,7 @@ public class Main {
         distances.put("Zakopane", distancesZa);
 
         Algorithm<StringGene> sampleAlgorithm = new Algorithm.Builder<StringGene>()
-                                                    .populationSize(10)
+                                                    .populationSize(2)
                                                     .fitnessFunction(new TSPFitnessFunction(distances))
                                                     .genotypeFactory(new TSPGenotypeFactory(cities))
                                                     .stopConditions(stopConditions)
@@ -96,6 +94,6 @@ public class Main {
                                                     .build();
 
         Population<StringGene> result = sampleAlgorithm.run();
-        System.out.println(result.getBestIndividual().getGenes().toString());
+        System.out.println(result.getBestIndividual().toString());
     }
 }

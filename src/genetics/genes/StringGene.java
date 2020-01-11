@@ -25,4 +25,11 @@ public class StringGene extends Gene {
     public boolean equals(Object other){
         return this.value.equals(((StringGene)other).value);
     }
+
+    @Override
+    public String toString() {
+        return "StringGene{" +
+                "value='" + value + '\'' +
+                '}';
+    }
 }
