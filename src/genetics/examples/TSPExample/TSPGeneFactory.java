@@ -31,6 +31,7 @@ public class TSPGeneFactory extends GeneFactory<StringGene> {
             int index = rnd.nextInt(cities.size());
             while (isUsed.get(index)){
                 index = rnd.nextInt(cities.size());
+                System.out.println("hej");
             }
             isUsed.set(index, true);
             return new StringGene(cities.get(index));
