@@ -1,6 +1,9 @@
 import genetics.examples.TSPExample.TSPCrossoverMethod;
 import genetics.examples.TSPExample.TSPFitnessFunction;
-import genetics.examples.TSPExample.TSPGenotypeFactory;
+import genetics.factories.GeneFactory;
+import genetics.factories.GenotypeFactory;
+import genetics.factories.TSPGeneFactory;
+import genetics.factories.TSPGenotypeFactory;
 import genetics.examples.TSPExample.TSPMutation;
 import genetics.genes.Genotype;
 import genetics.genes.Population;
@@ -126,5 +129,16 @@ public class TSPTests {
         sum += distances.get(genes.get(genes.size()-1).getValue()).get(genes.get(0).getValue());
 
         Assertions.assertEquals(-sum, result, "Fitness function didnt calculate properly!");
+    }
+
+    @Test
+    void testTSPGeneFactoryUniqueness(){
+        TSPGeneFactory geneFactory = new TSPGeneFactory(cities);
+        for(String city : cities){
+            Assertions.assertNotEquals(null, geneFactory.generate());
+        }
+        Assertions.assertEquals(null, geneFactory.generate());
+        geneFactory.reset();
+        Assertions.assertNotEquals(null, geneFactory.generate());
     }
 }

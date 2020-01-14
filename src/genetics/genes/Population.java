@@ -45,7 +45,7 @@ public class Population <G extends Gene> implements Iterable<Genotype<G>>{
         individuals = new ArrayList<>();
     }
 
-    public void setIndividuals(List<Genotype<G>> individuals) {
+    /*public void setIndividuals(List<Genotype<G>> individuals) {
         this.individuals = individuals;
-    }
+    }*/
 }

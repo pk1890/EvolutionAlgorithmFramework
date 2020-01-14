@@ -1,4 +1,4 @@
-package genetics.examples.TSPExample;
+package genetics.factories;
 
 import genetics.factories.GeneFactory;
 import genetics.genes.StringGene;

@@ -59,6 +59,20 @@ public class StopConditionsTests {
 
          Assertions.assertEquals(startTime + stopConditionTime*1000, System.currentTimeMillis(), milisEpsilon, "Elapsed time didnt match expected time (within epsilon)!");
       }
+
+      for (int i = 0; i < noOfTests; i++){
+         int stopConditionTime = rnd.nextInt(maxTime - minTime + 1) + minTime;
+
+         List<AbstractStopCondition> stopConditions = new ArrayList<>();
+         stopConditions.add(new ElapsedTimeStopCondition(stopConditionTime, TimeUnits.MILISECONDS));
+
+         Algorithm<DoubleGene> algorithm = createSampleAlgorithmBuilder().stopConditions(stopConditions).build();
+
+         long startTime = System.currentTimeMillis();
+         algorithm.run();
+
+         Assertions.assertEquals(startTime + stopConditionTime, System.currentTimeMillis(), milisEpsilon, "Elapsed time didnt match expected time (within epsilon)!");
+      }
    }
 
    @Test

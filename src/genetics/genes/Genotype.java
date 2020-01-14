@@ -45,7 +45,8 @@ public class Genotype<G extends Gene>{
             } catch (CloneNotSupportedException e) {
                 //should never happen
                 System.out.println("ERROR WITH CLONING GENE OCCURED, MAKE SURE TO IMPLEMENT CLONE ON YOUR GENE");
-                System.exit(1);
+                //System.exit(1);
+                throw new RuntimeException();
             }
         }
         return genesCopy;

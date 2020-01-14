@@ -1,8 +1,5 @@
-package genetics.examples.TSPExample;
+package genetics.factories;
 
-import genetics.factories.GeneFactory;
-import genetics.factories.GenotypeFactory;
-import genetics.genes.DoubleGene;
 import genetics.genes.Genotype;
 import genetics.genes.Population;
 import genetics.genes.StringGene;

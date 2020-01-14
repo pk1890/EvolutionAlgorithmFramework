@@ -2,16 +2,11 @@ package genetics.examples.TSPExample;
 
 import genetics.Algorithm;
 import genetics.examples.doubleOptimizationExample.SampleBreedingStrategy;
-import genetics.examples.doubleOptimizationExample.SampleCrossoverMethod;
-import genetics.examples.doubleOptimizationExample.SampleFitnessFunction;
-import genetics.examples.doubleOptimizationExample.SampleMutation;
-import genetics.factories.SampleDoubleGenotypeFactory;
+import genetics.factories.TSPGenotypeFactory;
 import genetics.genes.StringGene;
 import genetics.genes.Population;
-import genetics.operators.Operator;
-import genetics.operators.RandomTournamentSelector;
+import genetics.operators.*;
 import genetics.stopConditions.*;
-import genetics.utilities.Pair;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -35,9 +35,9 @@ public class TSPCrossoverMethod extends CrossoverMethod<StringGene> {
         return children;
     }
 
-    void swap(List<StringGene> list, int index1, int index2){
+    /*void swap(List<StringGene> list, int index1, int index2){
         StringGene tmp = list.get(index1);
         list.set(index1, list.get(index2));
         list.set(index2, tmp);
-    }
+    }*/
 }
