@@ -33,38 +33,38 @@ public class Algorithm <G extends Gene> {
             algorithm = new Algorithm<>();
         }
 
-        public Builder populationSize(int size){
+        public Builder<G> populationSize(int size){
             algorithm.startPopulationSize = size;
             return this;
         }
 
-        public Builder breedingStrategy(BreedingStrategy<G> breedingStrategy){
+        public Builder<G> breedingStrategy(BreedingStrategy<G> breedingStrategy){
             algorithm.breedingStrategy = breedingStrategy;
             return this;
         }
 
-        public Builder genotypeFactory(GenotypeFactory<G> genotypeFactory)
+        public Builder<G> genotypeFactory(GenotypeFactory<G> genotypeFactory)
         {
             algorithm.genotypeFactory = genotypeFactory;
             return this;
         }
 
-        public Builder fitnessFunction(Function<Genotype<G>, Double> function){
+        public Builder<G> fitnessFunction(Function<Genotype<G>, Double> function){
             algorithm.fitnessFunction = function;
             return this;
         }
 
-        public Builder operators(List<Operator<G>> operators){
+        public Builder<G> operators(List<Operator<G>> operators){
             algorithm.operators = operators;
             return this;
         }
 
-        public Builder selector(Selector<G> selector){
+        public Builder<G> selector(Selector<G> selector){
             algorithm.selector = selector;
             return this;
         }
 
-        public Builder stopConditions(List<AbstractStopCondition> abstractStopConditions){
+        public Builder<G> stopConditions(List<AbstractStopCondition> abstractStopConditions){
             algorithm.stopConditions = abstractStopConditions;
             return this;
         }
@@ -100,14 +100,12 @@ public class Algorithm <G extends Gene> {
         while(shouldContinue){
             nextEpoch();
         }
+        applyFitnessFunction();
         return population;
     }
 
-
     public void nextEpoch(){
-        for(Genotype<G> genotype : population){
-            genotype.setFitness(fitnessFunction.apply(genotype));
-        }
+        applyFitnessFunction();
         System.out.println(population.getBestIndividual());
         population = selector.select(population);
 
@@ -119,6 +117,12 @@ public class Algorithm <G extends Gene> {
         shouldContinue = stopConditions.stream()
                         .map(AbstractStopCondition::shouldContinue)
                         .reduce(true, (x, y) -> x & y);
+    }
+
+    private void applyFitnessFunction(){
+        for(Genotype<G> genotype : population){
+            genotype.setFitness(fitnessFunction.apply(genotype));
+        }
     }
 
     private void applyOperators() {
