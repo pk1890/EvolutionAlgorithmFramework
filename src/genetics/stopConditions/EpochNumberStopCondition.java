@@ -20,4 +20,8 @@ public class EpochNumberStopCondition extends CountingBasedStopCondition {
     public boolean shouldContinue(){
         return currentEpoch < number;
     }
+
+    public int getCurrentEpoch(){
+        return this.currentEpoch;
+    }
 }

@@ -17,7 +17,12 @@ public class EvaluationsCountStopCondition extends CountingBasedStopCondition{
         number++;
     }
 
+    @Override
     public boolean shouldContinue(){
         return number < count;
+    }
+
+    public int getNumber(){
+        return this.number;
     }
 }

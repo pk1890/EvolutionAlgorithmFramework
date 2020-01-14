@@ -20,7 +20,6 @@ public class Population <G extends Gene> implements Iterable<Genotype<G>>{
         return individuals.iterator();
     }
 
-
     public Genotype<G> getBestIndividual(){
         individuals.sort(Comparator.comparingDouble(Genotype::getFitness));
         return individuals.get(individuals.size()-1);

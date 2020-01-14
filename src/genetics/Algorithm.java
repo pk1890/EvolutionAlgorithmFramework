@@ -70,9 +70,7 @@ public class Algorithm <G extends Gene> {
         }
 
         public Algorithm<G> build(){
-
             init();
-
 
             return algorithm;
         }
@@ -100,19 +98,16 @@ public class Algorithm <G extends Gene> {
         while(shouldContinue){
             nextEpoch();
         }
-        applyFitnessFunction();
         return population;
     }
 
     public void nextEpoch(){
-        applyFitnessFunction();
-        System.out.println(population.getBestIndividual());
         population = selector.select(population);
-
+        applyOperators();
+        applyFitnessFunction();
         updateStopConditions();
 
-        applyOperators();
-
+        System.out.println(population.getBestIndividual());
 
         shouldContinue = stopConditions.stream()
                         .map(AbstractStopCondition::shouldContinue)
