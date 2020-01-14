@@ -57,7 +57,7 @@ public class StopConditionsTests {
          long startTime = System.currentTimeMillis();
          algorithm.run();
 
-         Assertions.assertEquals(startTime + stopConditionTime*1000, System.currentTimeMillis(), milisEpsilon);
+         Assertions.assertEquals(startTime + stopConditionTime*1000, System.currentTimeMillis(), milisEpsilon, "Elapsed time didnt match expected time (within epsilon)!");
       }
    }
 
@@ -67,17 +67,17 @@ public class StopConditionsTests {
       int maxEpochs = 1000;
       int noOfTests = 3;
       for (int i = 0; i < noOfTests; i++){
-         int stopConditionEpoch = rnd.nextInt(maxEpochs - minEpochs + 1) + minEpochs;
+         int stopConditionEpochs = rnd.nextInt(maxEpochs - minEpochs + 1) + minEpochs;
 
          List<AbstractStopCondition> stopConditions = new ArrayList<>();
-         EpochNumberStopCondition stopCondition = new EpochNumberStopCondition(stopConditionEpoch);
+         EpochNumberStopCondition stopCondition = new EpochNumberStopCondition(stopConditionEpochs);
          stopConditions.add(stopCondition);
 
          Algorithm<DoubleGene> algorithm = createSampleAlgorithmBuilder().stopConditions(stopConditions).build();
 
          algorithm.run();
 
-         Assertions.assertEquals(stopCondition.getCurrentEpoch(), stopConditionEpoch);
+         Assertions.assertEquals(stopConditionEpochs, stopCondition.getCurrentEpoch(), "Epoch number didnt match expected value!");
       }
    }
    @Test
@@ -86,17 +86,17 @@ public class StopConditionsTests {
       int maxEvaluations = 10000;
       int noOfTests = 3;
       for (int i = 0; i < noOfTests; i++){
-         int stopConditionEvaluation = rnd.nextInt(maxEvaluations - minEvaluations + 1) + minEvaluations;
+         int stopConditionEvaluations = rnd.nextInt(maxEvaluations - minEvaluations + 1) + minEvaluations;
 
          List<AbstractStopCondition> stopConditions = new ArrayList<>();
-         EvaluationsCountStopCondition stopCondition = new EvaluationsCountStopCondition(stopConditionEvaluation);
+         EvaluationsCountStopCondition stopCondition = new EvaluationsCountStopCondition(stopConditionEvaluations);
          stopConditions.add(stopCondition);
 
          Algorithm<DoubleGene> algorithm = createSampleAlgorithmBuilder().stopConditions(stopConditions).build();
 
          algorithm.run();
 
-         Assertions.assertEquals(stopCondition.getNumber(), stopConditionEvaluation);
+         Assertions.assertEquals(stopConditionEvaluations, stopCondition.getNumber(), "Number of evaluations didnt match expected value!");
       }
    }
    @Test
@@ -117,7 +117,7 @@ public class StopConditionsTests {
          algorithm.run();
 
          LinkedList<Double> bestFitnesses = stopCondition.getBestFitnesses();
-         Assertions.assertEquals(stopCondition.getFilledFields(), noOfEpochs, "Wrong number of epochs!");
+         Assertions.assertEquals(noOfEpochs, stopCondition.getFilledFields(), "Wrong number of epochs!");
          Assertions.assertTrue((Math.abs(bestFitnesses.getFirst() - bestFitnesses.getLast()) < plateauValue), "Fitness values didnt reach plateau!");
       }
    }

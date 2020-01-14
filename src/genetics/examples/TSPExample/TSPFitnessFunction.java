@@ -17,7 +17,6 @@ public class TSPFitnessFunction implements Function<Genotype<StringGene>, Double
         this.distances = distances;
     }
 
-
     @Override
     public Double apply(Genotype<StringGene> stringGeneGenotype) {
         int sum = 0;
