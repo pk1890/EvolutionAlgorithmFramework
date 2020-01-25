@@ -1,4 +1,3 @@
-import genetics.operators.RandomTournamentSelector;
 import genetics.utilities.Pair;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -10,8 +9,8 @@ public class UtilsTests {
     void testPair(){
         Random random = new Random();
         for(int i = 0; i < 100; i++){
-            int key = random.nextInt(1000000);
-            double value = random.nextDouble();
+            Integer key = random.nextInt(1000000);
+            Double value = random.nextDouble();
             Pair<Integer, Double> pair = new Pair<>(key, value);
             Assertions.assertEquals(key, pair.getFirst());
             Assertions.assertEquals(value, pair.getSecond());

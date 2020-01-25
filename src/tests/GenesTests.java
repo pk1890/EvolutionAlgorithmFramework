@@ -3,7 +3,6 @@ import genetics.genes.*;
 import genetics.utilities.Pair;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -24,12 +23,13 @@ public class GenesTests {
             } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
             }
-            Assertions.assertTrue(clone.equals(stringGene));
+            Assertions.assertEquals(clone, stringGene);
+            assert clone != null;
             clone.setValue("SPANNISH INQUISITION");
             Assertions.assertEquals(stringGene.toString(), "StringGene{" +
                     "value='" + stringGene.getValue() + '\'' + '}');
             Assertions.assertNotEquals(clone.getValue(), stringGene.getValue());
-            Assertions.assertFalse(clone.equals(stringGene));
+            Assertions.assertNotEquals(clone, stringGene);
         }
     }
 
@@ -38,7 +38,7 @@ public class GenesTests {
 
     }
 
-    class testGene extends Gene{
+    static class testGene extends Gene{
 
         @Override
         public Gene getClone() throws CloneNotSupportedException {
@@ -58,8 +58,8 @@ public class GenesTests {
     @Test
     void SampleGenotypeFactoryTest(){
         List<Pair<Double, Double>> ranges = new ArrayList<>();
-        ranges.add(new Pair<Double, Double>(0.0, 10.0));
-        ranges.add(new Pair<Double, Double>(0.0, 20.0));
+        ranges.add(new Pair<>(0.0, 10.0));
+        ranges.add(new Pair<>(0.0, 20.0));
 
         SampleDoubleGenotypeFactory factory = new SampleDoubleGenotypeFactory(ranges);
 

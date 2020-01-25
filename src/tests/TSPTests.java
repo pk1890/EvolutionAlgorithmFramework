@@ -1,7 +1,5 @@
 import genetics.examples.TSPExample.TSPCrossoverMethod;
 import genetics.examples.TSPExample.TSPFitnessFunction;
-import genetics.factories.GeneFactory;
-import genetics.factories.GenotypeFactory;
 import genetics.factories.TSPGeneFactory;
 import genetics.factories.TSPGenotypeFactory;
 import genetics.examples.TSPExample.TSPMutation;
@@ -120,7 +118,7 @@ public class TSPTests {
         distances.put("Zakopane", distancesZa);
 
         TSPFitnessFunction fitnessFunction = new TSPFitnessFunction(distances);
-        Double result = fitnessFunction.apply(genotype);
+        double result = fitnessFunction.apply(genotype);
 
         int sum = 0;
         for(int i = 0; i < genes.size()-1; i++){
@@ -137,7 +135,7 @@ public class TSPTests {
         for(String city : cities){
             Assertions.assertNotEquals(null, geneFactory.generate());
         }
-        Assertions.assertEquals(null, geneFactory.generate());
+        Assertions.assertNull(geneFactory.generate());
         geneFactory.reset();
         Assertions.assertNotEquals(null, geneFactory.generate());
     }
