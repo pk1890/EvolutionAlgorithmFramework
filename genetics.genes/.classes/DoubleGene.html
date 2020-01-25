@@ -1,0 +1,116 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: DoubleGene</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">genetics.genes</a> ]
+</div>
+
+<h1>Coverage Summary for Class: DoubleGene (genetics.genes)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">DoubleGene</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (10/ 10)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package genetics.genes;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;public class DoubleGene extends Gene {
+<i>4</i>&nbsp;    private double value;
+<i>5</i>&nbsp;    private double min;
+<i>6</i>&nbsp;    private double max;
+<i>7</i>&nbsp;
+<b class="fc"><i>8</i>&nbsp;    public DoubleGene(double value, double min, double max){</b>
+<b class="fc"><i>9</i>&nbsp;        this.value = value;</b>
+<b class="fc"><i>10</i>&nbsp;        this.min = min;</b>
+<b class="fc"><i>11</i>&nbsp;        this.max = max;</b>
+<b class="fc"><i>12</i>&nbsp;    }</b>
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;    public double getValue() {
+<b class="fc"><i>15</i>&nbsp;        return value;</b>
+<i>16</i>&nbsp;    }
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    public void setValue(double value) {
+<b class="fc"><i>19</i>&nbsp;        this.value = value;</b>
+<b class="fc"><i>20</i>&nbsp;    }</b>
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    @Override
+<i>23</i>&nbsp;    public String toString() {
+<b class="fc"><i>24</i>&nbsp;        return &quot;DoubleGene{&quot; +</b>
+<i>25</i>&nbsp;                &quot;value=&quot; + value +
+<i>26</i>&nbsp;                &#39;}&#39;;
+<i>27</i>&nbsp;    }
+<i>28</i>&nbsp;    @Override
+<i>29</i>&nbsp;    public Gene getClone() throws CloneNotSupportedException {
+<b class="fc"><i>30</i>&nbsp;        return (DoubleGene)super.clone();</b>
+<i>31</i>&nbsp;    }
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-01-14 22:43</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,143 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ElapsedTimeStopCondition</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">genetics.stopConditions</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ElapsedTimeStopCondition (genetics.stopConditions)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ElapsedTimeStopCondition</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (11/ 11)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ElapsedTimeStopCondition$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (12/ 12)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package genetics.stopConditions;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import genetics.stopConditions.AbstractStopCondition;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;import java.sql.Timestamp;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;public class ElapsedTimeStopCondition extends CountingBasedStopCondition {
+<i>8</i>&nbsp;    private long miliseconds, startTimestamp, currentTimestamp;
+<b class="fc"><i>9</i>&nbsp;    public ElapsedTimeStopCondition(int value, TimeUnits unit){</b>
+<b class="fc"><i>10</i>&nbsp;        switch (unit){</b>
+<i>11</i>&nbsp;            case SECONDS:
+<b class="fc"><i>12</i>&nbsp;                miliseconds = value*1000;</b>
+<b class="fc"><i>13</i>&nbsp;                break;</b>
+<i>14</i>&nbsp;            case MILISECONDS:
+<b class="fc"><i>15</i>&nbsp;                miliseconds = value;</b>
+<i>16</i>&nbsp;                break;
+<i>17</i>&nbsp;        }
+<b class="fc"><i>18</i>&nbsp;    }</b>
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    @Override
+<i>21</i>&nbsp;    public void update(){
+<b class="fc"><i>22</i>&nbsp;        this.currentTimestamp = System.currentTimeMillis();</b>
+<b class="fc"><i>23</i>&nbsp;    }</b>
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;    @Override
+<i>26</i>&nbsp;    public void reset(){
+<b class="fc"><i>27</i>&nbsp;        startTimestamp = System.currentTimeMillis();</b>
+<b class="fc"><i>28</i>&nbsp;    }</b>
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    @Override
+<i>31</i>&nbsp;    public boolean shouldContinue(){
+<b class="fc"><i>32</i>&nbsp;        return startTimestamp + miliseconds &gt; currentTimestamp;</b>
+<i>33</i>&nbsp;    }
+<i>34</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-01-14 22:43</div>
+</div>
+</body>
+</html>

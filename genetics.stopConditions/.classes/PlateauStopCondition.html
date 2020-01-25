@@ -1,0 +1,136 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: PlateauStopCondition</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">genetics.stopConditions</a> ]
+</div>
+
+<h1>Coverage Summary for Class: PlateauStopCondition (genetics.stopConditions)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PlateauStopCondition</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (20/ 20)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package genetics.stopConditions;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.util.LinkedList;
+<i>4</i>&nbsp;import java.util.List;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;public class PlateauStopCondition extends FitnessBasedStopCondition {
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;    private final int epochNumber;
+<i>9</i>&nbsp;    private final double delta;
+<i>10</i>&nbsp;    private LinkedList&lt;Double&gt; bestFitnesses;
+<b class="fc"><i>11</i>&nbsp;    private int filledFields = 0;</b>
+<i>12</i>&nbsp;
+<b class="fc"><i>13</i>&nbsp;    public PlateauStopCondition(int epochNumber, double delta){</b>
+<b class="fc"><i>14</i>&nbsp;        this.delta = delta;</b>
+<b class="fc"><i>15</i>&nbsp;        this.epochNumber = epochNumber;</b>
+<b class="fc"><i>16</i>&nbsp;        this.bestFitnesses = new LinkedList&lt;&gt;();</b>
+<b class="fc"><i>17</i>&nbsp;    }</b>
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;    private void pushBest(double bestFitness){
+<b class="fc"><i>20</i>&nbsp;        if (filledFields &gt;= epochNumber) {</b>
+<b class="fc"><i>21</i>&nbsp;            bestFitnesses.removeFirst();</b>
+<i>22</i>&nbsp;        }
+<i>23</i>&nbsp;        else{
+<b class="fc"><i>24</i>&nbsp;            filledFields++;</b>
+<i>25</i>&nbsp;        }
+<b class="fc"><i>26</i>&nbsp;        bestFitnesses.addLast(bestFitness);</b>
+<b class="fc"><i>27</i>&nbsp;    }</b>
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    @Override
+<i>30</i>&nbsp;    public void reset() {
+<b class="fc"><i>31</i>&nbsp;        this.bestFitnesses = new LinkedList&lt;&gt;();</b>
+<b class="fc"><i>32</i>&nbsp;        filledFields = 0;</b>
+<b class="fc"><i>33</i>&nbsp;    }</b>
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;    @Override
+<i>36</i>&nbsp;    public boolean shouldContinue() {
+<b class="fc"><i>37</i>&nbsp;        return filledFields &lt; epochNumber || (Math.abs(bestFitnesses.getFirst() - bestFitnesses.getLast()) &gt; delta);</b>
+<i>38</i>&nbsp;    }
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;    @Override
+<i>41</i>&nbsp;    public void update(List&lt;Double&gt; fitnesses) {
+<b class="fc"><i>42</i>&nbsp;        fitnesses.sort(Double::compareTo);</b>
+<b class="fc"><i>43</i>&nbsp;        pushBest(fitnesses.get(fitnesses.size()-1));</b>
+<b class="fc"><i>44</i>&nbsp;    }</b>
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    public LinkedList&lt;Double&gt; getBestFitnesses() {
+<b class="fc"><i>47</i>&nbsp;        return bestFitnesses;</b>
+<i>48</i>&nbsp;    }
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;    public int getFilledFields() {
+<b class="fc"><i>51</i>&nbsp;        return filledFields;</b>
+<i>52</i>&nbsp;    }
+<i>53</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-01-14 22:43</div>
+</div>
+</body>
+</html>

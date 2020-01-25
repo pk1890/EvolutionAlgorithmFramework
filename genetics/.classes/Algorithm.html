@@ -1,0 +1,246 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Algorithm</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">genetics</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Algorithm (genetics)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Algorithm</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (31/ 31)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Algorithm$Builder</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (10/ 10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (23/ 23)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (17/ 17)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (54/ 54)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package genetics;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import genetics.factories.GenotypeFactory;
+<i>4</i>&nbsp;import genetics.genes.Gene;
+<i>5</i>&nbsp;import genetics.genes.Genotype;
+<i>6</i>&nbsp;import genetics.genes.Population;
+<i>7</i>&nbsp;import genetics.operators.CrossoverMethod;
+<i>8</i>&nbsp;import genetics.operators.Mutation;
+<i>9</i>&nbsp;import genetics.operators.Operator;
+<i>10</i>&nbsp;import genetics.operators.Selector;
+<i>11</i>&nbsp;import genetics.utilities.BreedingStrategy;
+<i>12</i>&nbsp;import genetics.stopConditions.*;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;import java.util.List;
+<i>15</i>&nbsp;import java.util.Random;
+<i>16</i>&nbsp;import java.util.function.Function;
+<i>17</i>&nbsp;
+<b class="fc"><i>18</i>&nbsp;public class Algorithm &lt;G extends Gene&gt; {</b>
+<i>19</i>&nbsp;    private int startPopulationSize;
+<i>20</i>&nbsp;    private Function&lt;Genotype&lt;G&gt;, Double&gt; fitnessFunction;
+<i>21</i>&nbsp;    private List&lt;Operator&lt;G&gt;&gt; operators;
+<i>22</i>&nbsp;    private Population&lt;G&gt; population;
+<i>23</i>&nbsp;    private Selector&lt;G&gt; selector;
+<i>24</i>&nbsp;    private GenotypeFactory&lt;G&gt; genotypeFactory;
+<i>25</i>&nbsp;    private BreedingStrategy&lt;G&gt; breedingStrategy;
+<i>26</i>&nbsp;    private List&lt;AbstractStopCondition&gt; stopConditions;
+<b class="fc"><i>27</i>&nbsp;    private boolean shouldContinue = true;</b>
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    public static class Builder &lt;G extends Gene&gt; {
+<i>30</i>&nbsp;        private Algorithm&lt;G&gt; algorithm;
+<i>31</i>&nbsp;
+<b class="fc"><i>32</i>&nbsp;        public Builder(){</b>
+<b class="fc"><i>33</i>&nbsp;            algorithm = new Algorithm&lt;&gt;();</b>
+<b class="fc"><i>34</i>&nbsp;        }</b>
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;        public Builder&lt;G&gt; populationSize(int size){
+<b class="fc"><i>37</i>&nbsp;            algorithm.startPopulationSize = size;</b>
+<b class="fc"><i>38</i>&nbsp;            return this;</b>
+<i>39</i>&nbsp;        }
+<i>40</i>&nbsp;
+<i>41</i>&nbsp;        public Builder&lt;G&gt; breedingStrategy(BreedingStrategy&lt;G&gt; breedingStrategy){
+<b class="fc"><i>42</i>&nbsp;            algorithm.breedingStrategy = breedingStrategy;</b>
+<b class="fc"><i>43</i>&nbsp;            return this;</b>
+<i>44</i>&nbsp;        }
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;        public Builder&lt;G&gt; genotypeFactory(GenotypeFactory&lt;G&gt; genotypeFactory)
+<i>47</i>&nbsp;        {
+<b class="fc"><i>48</i>&nbsp;            algorithm.genotypeFactory = genotypeFactory;</b>
+<b class="fc"><i>49</i>&nbsp;            return this;</b>
+<i>50</i>&nbsp;        }
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;        public Builder&lt;G&gt; fitnessFunction(Function&lt;Genotype&lt;G&gt;, Double&gt; function){
+<b class="fc"><i>53</i>&nbsp;            algorithm.fitnessFunction = function;</b>
+<b class="fc"><i>54</i>&nbsp;            return this;</b>
+<i>55</i>&nbsp;        }
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;        public Builder&lt;G&gt; operators(List&lt;Operator&lt;G&gt;&gt; operators){
+<b class="fc"><i>58</i>&nbsp;            algorithm.operators = operators;</b>
+<b class="fc"><i>59</i>&nbsp;            return this;</b>
+<i>60</i>&nbsp;        }
+<i>61</i>&nbsp;
+<i>62</i>&nbsp;        public Builder&lt;G&gt; selector(Selector&lt;G&gt; selector){
+<b class="fc"><i>63</i>&nbsp;            algorithm.selector = selector;</b>
+<b class="fc"><i>64</i>&nbsp;            return this;</b>
+<i>65</i>&nbsp;        }
+<i>66</i>&nbsp;
+<i>67</i>&nbsp;        public Builder&lt;G&gt; stopConditions(List&lt;AbstractStopCondition&gt; abstractStopConditions){
+<b class="fc"><i>68</i>&nbsp;            algorithm.stopConditions = abstractStopConditions;</b>
+<b class="fc"><i>69</i>&nbsp;            return this;</b>
+<i>70</i>&nbsp;        }
+<i>71</i>&nbsp;
+<i>72</i>&nbsp;        public Algorithm&lt;G&gt; build(){
+<b class="fc"><i>73</i>&nbsp;            init();</b>
+<i>74</i>&nbsp;
+<b class="fc"><i>75</i>&nbsp;            return algorithm;</b>
+<i>76</i>&nbsp;        }
+<i>77</i>&nbsp;
+<i>78</i>&nbsp;        private void init()
+<i>79</i>&nbsp;        {
+<b class="fc"><i>80</i>&nbsp;            algorithm.population = new Population&lt;&gt;();</b>
+<b class="fc"><i>81</i>&nbsp;            for(int i = 0; i&lt;algorithm.startPopulationSize; i++)</b>
+<i>82</i>&nbsp;            {
+<b class="fc"><i>83</i>&nbsp;                algorithm.population.addIndividual(algorithm.genotypeFactory.generate());</b>
+<i>84</i>&nbsp;            }
+<i>85</i>&nbsp;
+<b class="fc"><i>86</i>&nbsp;        }</b>
+<i>87</i>&nbsp;
+<i>88</i>&nbsp;    }
+<i>89</i>&nbsp;
+<i>90</i>&nbsp;    private void updateStopConditions() {
+<b class="fc"><i>91</i>&nbsp;        stopConditions.forEach((x) -&gt; {</b>
+<b class="fc"><i>92</i>&nbsp;            if(x instanceof CountingBasedStopCondition) ((CountingBasedStopCondition) x).update();</b>
+<b class="fc"><i>93</i>&nbsp;            if(x instanceof FitnessBasedStopCondition) ((FitnessBasedStopCondition) x).update(population.getFitnesses());</b>
+<b class="fc"><i>94</i>&nbsp;        });</b>
+<b class="fc"><i>95</i>&nbsp;    }</b>
+<i>96</i>&nbsp;    public Population&lt;G&gt; run(){
+<b class="fc"><i>97</i>&nbsp;        stopConditions.forEach(AbstractStopCondition::reset);</b>
+<b class="fc"><i>98</i>&nbsp;        while(shouldContinue){</b>
+<b class="fc"><i>99</i>&nbsp;            nextEpoch();</b>
+<i>100</i>&nbsp;        }
+<b class="fc"><i>101</i>&nbsp;        return population;</b>
+<i>102</i>&nbsp;    }
+<i>103</i>&nbsp;
+<i>104</i>&nbsp;    public void nextEpoch(){
+<b class="fc"><i>105</i>&nbsp;        population = selector.select(population);</b>
+<b class="fc"><i>106</i>&nbsp;        applyOperators();</b>
+<b class="fc"><i>107</i>&nbsp;        applyFitnessFunction();</b>
+<b class="fc"><i>108</i>&nbsp;        updateStopConditions();</b>
+<i>109</i>&nbsp;
+<b class="fc"><i>110</i>&nbsp;        System.out.println(population.getBestIndividual());</b>
+<i>111</i>&nbsp;
+<b class="fc"><i>112</i>&nbsp;        shouldContinue = stopConditions.stream()</b>
+<b class="fc"><i>113</i>&nbsp;                        .map(AbstractStopCondition::shouldContinue)</b>
+<b class="fc"><i>114</i>&nbsp;                        .reduce(true, (x, y) -&gt; x &amp; y);</b>
+<b class="fc"><i>115</i>&nbsp;    }</b>
+<i>116</i>&nbsp;
+<i>117</i>&nbsp;    private void applyFitnessFunction(){
+<b class="fc"><i>118</i>&nbsp;        for(Genotype&lt;G&gt; genotype : population){</b>
+<b class="fc"><i>119</i>&nbsp;            genotype.setFitness(fitnessFunction.apply(genotype));</b>
+<b class="fc"><i>120</i>&nbsp;        }</b>
+<b class="fc"><i>121</i>&nbsp;    }</b>
+<i>122</i>&nbsp;
+<i>123</i>&nbsp;    private void applyOperators() {
+<b class="fc"><i>124</i>&nbsp;        for(Operator&lt;G&gt; operator : operators)</b>
+<i>125</i>&nbsp;        {
+<b class="fc"><i>126</i>&nbsp;            if(operator instanceof CrossoverMethod)</b>
+<i>127</i>&nbsp;            {
+<b class="fc"><i>128</i>&nbsp;                population.concatenate(((CrossoverMethod&lt;G&gt;) operator).crossbreed(breedingStrategy, population));</b>
+<i>129</i>&nbsp;            }
+<b class="fc"><i>130</i>&nbsp;            else if(operator instanceof Mutation)</b>
+<i>131</i>&nbsp;            {
+<b class="fc"><i>132</i>&nbsp;                ((Mutation&lt;G&gt;) operator).mutate(population.getIndividuals().get(new Random().nextInt(population.size())));</b>
+<i>133</i>&nbsp;            }
+<b class="fc"><i>134</i>&nbsp;        }</b>
+<b class="fc"><i>135</i>&nbsp;    }</b>
+<i>136</i>&nbsp;
+<i>137</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-01-14 22:43</div>
+</div>
+</body>
+</html>

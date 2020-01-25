@@ -1,0 +1,110 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: EpochNumberStopCondition</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">genetics.stopConditions</a> ]
+</div>
+
+<h1>Coverage Summary for Class: EpochNumberStopCondition (genetics.stopConditions)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">EpochNumberStopCondition</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/ 9)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package genetics.stopConditions;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;public class EpochNumberStopCondition extends CountingBasedStopCondition {
+<i>4</i>&nbsp;    private int number, currentEpoch;
+<b class="fc"><i>5</i>&nbsp;    public EpochNumberStopCondition(int number){</b>
+<b class="fc"><i>6</i>&nbsp;        this.number = number;</b>
+<b class="fc"><i>7</i>&nbsp;    }</b>
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;    @Override
+<i>10</i>&nbsp;    public void reset() {
+<b class="fc"><i>11</i>&nbsp;        currentEpoch = 0;</b>
+<b class="fc"><i>12</i>&nbsp;    }</b>
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;    @Override
+<i>15</i>&nbsp;    public void update(){
+<b class="fc"><i>16</i>&nbsp;        currentEpoch++;</b>
+<b class="fc"><i>17</i>&nbsp;    }</b>
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;    @Override
+<i>20</i>&nbsp;    public boolean shouldContinue(){
+<b class="fc"><i>21</i>&nbsp;        return currentEpoch &lt; number;</b>
+<i>22</i>&nbsp;    }
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    public int getCurrentEpoch(){
+<b class="fc"><i>25</i>&nbsp;        return this.currentEpoch;</b>
+<i>26</i>&nbsp;    }
+<i>27</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-01-14 22:43</div>
+</div>
+</body>
+</html>
